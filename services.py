@@ -1,4 +1,5 @@
 from db_connection import get_connection
+from security import verify_password
 
 def register(username, password, email):
     try:
@@ -28,8 +29,10 @@ def get_user(username):
   
 def login(username, password):
     user_exists = get_user(username)
+    print(user_exists[2])
+    print(password)
     if user_exists:
-        if password == user_exists[2]:
+        if verify_password(password, user_exists[2]):
             return user_exists
         else:
             print("Incorrect password")
